@@ -2,6 +2,8 @@ package com.example.basiclogin;
 
 import org.junit.Test;
 
+import java.util.Random;
+
 import static org.junit.Assert.*;
 
 /**
@@ -13,5 +15,13 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
+    }
+
+    public void mulitplication() {
+        Random random = new Random();
+        int y = random.nextInt(1000);
+        int x = random.nextInt(1000);
+
+        assertEquals(x*y, Util.multiply(x,y));
     }
 }
