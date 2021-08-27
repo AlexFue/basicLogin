@@ -2,10 +2,13 @@ package com.example.basiclogin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +29,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         intializeUsers(users);
-//        print(users);
 
         et_username = findViewById(R.id.et_username);
         et_password = findViewById(R.id.et_password);
@@ -36,13 +38,44 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = et_username.getText().toString();
                 String password = et_password.getText().toString();
-
+                isValidCredentials(username, password);
 
             }
         });
     }
 
-//    public void isValidCredentials;
+    public void isValidCredentials(String username, String password){
+        et_password.clearFocus();
+        et_username.clearFocus();
+        et_username.setSelectAllOnFocus(false);
+        et_password.setSelectAllOnFocus(false);
+        for(Map obj: users){
+            if(username.equals(obj.get("username"))){
+                if(password.equals(obj.get("password"))){
+                    Intent i = new Intent(this, MainActivity.class);
+                    Bundle bun = new Bundle();
+                    bun.putString("username", username);
+                    bun.putString("password", password);
+                    bun.putString("id", obj.get("id").toString());
+                    i.putExtras(bun);
+                    startActivity(i);
+                    finish();
+                    return;
+                }
+                else{
+                    System.out.println("wrong password");
+                    et_password.setSelectAllOnFocus(true);
+                    et_password.requestFocus();
+                    Toast.makeText(LoginActivity.this, "Incorrect Password!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+        }
+        System.out.println("wrong username");
+        et_username.setSelectAllOnFocus(true);
+        et_username.requestFocus();
+        Toast.makeText(LoginActivity.this, "Incorrect Username!", Toast.LENGTH_SHORT).show();
+    }
 
     public void intializeUsers(List<Map<String, String>> users){
         String[] usernames = {"alex", "andy", "michael", "eric", "prince", "aundre", "steven", "edward", "nick", "chris"};
@@ -56,12 +89,4 @@ public class LoginActivity extends AppCompatActivity {
             users.add(obj);
         }
     }
-
-//    public void print(List<Map<String, String>> users){
-//        for(Map m : users){
-//            System.out.println(m.get("username"));
-//            System.out.println(m.get("password"));
-//            System.out.println(m.get("id"));
-//        }
-//    }
 }
