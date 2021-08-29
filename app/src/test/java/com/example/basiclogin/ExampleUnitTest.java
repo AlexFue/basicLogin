@@ -24,4 +24,8 @@ public class ExampleUnitTest {
 
         assertEquals(x*y, Util.multiply(x,y));
     }
+
+    public void testUsername() {
+
+    }
 }
