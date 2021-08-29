@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         for(Map obj: users){
             if(username.equals(obj.get("username"))){
                 if(password.equals(obj.get("password"))){
-                    Intent i = new Intent(this, MainActivity.class);
+                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
                     Bundle bun = new Bundle();
                     bun.putString("username", username);
                     bun.putString("password", password);
