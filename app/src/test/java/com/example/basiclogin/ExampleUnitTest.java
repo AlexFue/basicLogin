@@ -1,5 +1,7 @@
 package com.example.basiclogin;
 
+import android.widget.EditText;
+
 import org.junit.Test;
 
 import java.util.Random;
@@ -12,6 +14,7 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
@@ -23,9 +26,5 @@ public class ExampleUnitTest {
         int x = random.nextInt(1000);
 
         assertEquals(x*y, Util.multiply(x,y));
-    }
-
-    public void testUsername() {
-
     }
 }
