@@ -2,6 +2,8 @@ package com.example.basiclogin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -17,13 +19,14 @@ public class MainActivity extends AppCompatActivity {
 
     private Bundle bun;
     private TextView textViewResult;
+    public static final String ACTIVITY_LABEL = "SECOND_ACTIVITY_COM_EXAMPLE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bun = getIntent().getExtras();
+        bun = getIntent().getBundleExtra(ACTIVITY_LABEL);
         textViewResult = findViewById(R.id.text_view_result);
         textViewResult.setText("Welcome " + bun.getString("username") + ", Id: " + bun.getString("id") + "\n\n\n");
 
@@ -64,5 +67,11 @@ public class MainActivity extends AppCompatActivity {
                 textViewResult.setText(t.getMessage());
             }
         });
+    }
+
+    public static Intent getIntent(Context context, Bundle bun) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(MainActivity.ACTIVITY_LABEL, bun);
+        return intent;
     }
 }

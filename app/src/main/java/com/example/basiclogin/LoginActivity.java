@@ -21,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText et_password;
     private Button btn_login;
     private static String id;
+    private Bundle bun = new Bundle();
 
     private static List<Map<String, String>> users =  new ArrayList<Map<String, String>>();
 
@@ -34,77 +35,30 @@ public class LoginActivity extends AppCompatActivity {
         et_username = findViewById(R.id.et_username);
         et_password = findViewById(R.id.et_password);
         btn_login = findViewById(R.id.btn_login);
-//        btn_login.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String username = et_username.getText().toString();
-//                String password = et_password.getText().toString();
-//                isValidCredentials(username, password);
-//
-//            }
-//        });
-
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = et_username.getText().toString();
-                String password = et_password.getText().toString();
-                String result = isValidCredentials(username, password);
-                clearFocus();
-                switch (result) {
-                    case "valid":
-                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                        Bundle bun = new Bundle();
-                        bun.putString("username", username);
-                        bun.putString("password", password);
-                        bun.putString("id", id);
-                        i.putExtras(bun);
-                        startActivity(i);
-                        finish();
-                        break;
-                    case "wrong user":
-                        isWrongUser();
-                        break;
-                    case "wrong password":
-                        isWrongPassword();
-                        break;
-                }
-            }
-        });
     }
 
-//    public void isValidCredentials(String username, String password){
-//        et_password.clearFocus();
-//        et_username.clearFocus();
-//        et_username.setSelectAllOnFocus(false);
-//        et_password.setSelectAllOnFocus(false);
-//        for(Map obj: users){
-//            if(username.equals(obj.get("username"))){
-//                if(password.equals(obj.get("password"))){
-//                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
-//                    Bundle bun = new Bundle();
-//                    bun.putString("username", username);
-//                    bun.putString("password", password);
-//                    bun.putString("id", obj.get("id").toString());
-//                    i.putExtras(bun);
-//                    startActivity(i);
-//                    finish();
-//                    return;
-//                }
-//                else{
-//                    System.out.println("wrong password");
-//                    et_password.setSelectAllOnFocus(true);
-//                    et_password.requestFocus();
-//                    Toast.makeText(LoginActivity.this, "Incorrect Password!", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//            }
-//        }
-//        System.out.println("wrong username");
-//        et_username.setSelectAllOnFocus(true);
-//        et_username.requestFocus();
-//        Toast.makeText(LoginActivity.this, "Incorrect Username!", Toast.LENGTH_SHORT).show();
-//    }
+    public void nextActivity(View view) {
+        String username = et_username.getText().toString();
+        String password = et_password.getText().toString();
+        String result = isValidCredentials(username, password);
+        clearFocus();
+        switch (result) {
+            case "valid":
+                bun.putString("username", username);
+                bun.putString("password", password);
+                bun.putString("id", id);
+                break;
+            case "wrong user":
+                isWrongUser();
+                return;
+            case "wrong password":
+                isWrongPassword();
+                return;
+        }
+
+        Intent intent = MainActivity.getIntent(getApplicationContext(), bun);
+        startActivity(intent);
+    }
 
     public static String isValidCredentials(String username, String password) {
         for(Map obj: users){
