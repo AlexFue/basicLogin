@@ -15,6 +15,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <h1>Basic Login!</h1>
+ * The Basic Login program implements an application that simply allows a user to login and see their posts.
+ * <p>
+ * <b>Login Activity:</b> This Activity is a login page and it allows the user to input their username and password.
+ * Then they click login to see if their credentials are correct to go into the app and see their posts.
+ *
+ * @author  Alex Espinoza-Fuentes
+ */
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText et_username;
@@ -37,6 +47,9 @@ public class LoginActivity extends AppCompatActivity {
         btn_login = findViewById(R.id.btn_login);
     }
 
+    /**
+     * Function checks if login was valid and if so, moves to next activity with user's information
+     */
     public void nextActivity(View view) {
         String username = et_username.getText().toString();
         String password = et_password.getText().toString();
@@ -75,6 +88,9 @@ public class LoginActivity extends AppCompatActivity {
         return "wrong user";
     }
 
+    /**
+     * Clears the focus on both input texts'
+     */
     public void clearFocus() {
         et_password.clearFocus();
         et_username.clearFocus();
@@ -82,12 +98,18 @@ public class LoginActivity extends AppCompatActivity {
         et_password.setSelectAllOnFocus(false);
     }
 
+    /**
+     * Sets the focus and highlights password input text
+     */
     public void isWrongPassword() {
         et_password.setSelectAllOnFocus(true);
         et_password.requestFocus();
         Toast.makeText(LoginActivity.this, "Incorrect Password!", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Sets the focus and highlights username input text
+     */
     public void isWrongUser() {
         et_username.setSelectAllOnFocus(true);
         et_username.requestFocus();
